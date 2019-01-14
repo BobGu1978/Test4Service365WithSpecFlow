@@ -5,6 +5,8 @@ using System.Text;
 using TechTalk.SpecFlow;
 using ServiceTSF.WrapperFactory;
 using OpenQA.Selenium;
+using System.Configuration;
+using System.Reflection;
 
 namespace ServiceTSF
 {
@@ -44,9 +46,17 @@ namespace ServiceTSF
         public static void BeforeScenario()
         {
             //TODO: implement logic that has to run before executing each scenario
-            //            tbDriver = new BrowserFactory(ScenarioContext.Current);
-            //            ScenarioContext.Current["Driver"] = tbDriver;
-            BrowserFactory.LoadApplication("https://uat.service365.co.nz/"); // here we will use value from config file
+            Uri UriAssemblyFolder = new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly()
+                          .GetName().CodeBase));
+            string appPath = UriAssemblyFolder.LocalPath;
+            Configuration config = ConfigurationManager.OpenExeConfiguration(appPath + @"\" + "ServiceTSF.dll");
+
+            var settings = config.AppSettings.Settings;
+
+            String url = settings["Url"].Value;
+
+//            BrowserFactory.LoadApplication("https://uat.service365.co.nz/"); // here we will use value from config file
+            BrowserFactory.LoadApplication(url); // here we will use value from config file
         }
 
         [AfterScenario]
