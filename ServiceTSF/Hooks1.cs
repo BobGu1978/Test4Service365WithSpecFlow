@@ -21,13 +21,22 @@ namespace ServiceTSF
             Uri UriAssemblyFolder = new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly()
               .GetName().CodeBase));
             string appPath = UriAssemblyFolder.LocalPath;
-            Configuration config = ConfigurationManager.OpenExeConfiguration(appPath + @"\" + "OnlineStore.dll");
+            Configuration config = ConfigurationManager.OpenExeConfiguration(appPath + @"\" + "ServiceTSF.dll");
 
             var settings = config.AppSettings.Settings;
 
             url = settings["Url"].Value;
             */
-            BrowserFactory.InitBrowser("Chrome");//here we will use System.Environment() to replace with
+            String BrowserType = System.Environment.GetEnvironmentVariable("Browser");
+            if(BrowserType==null)
+            {
+                BrowserType = "Chrome";//now we use Chrome as default brwoser temporarily.
+            }else
+            {
+                if ((!BrowserType.Equals("Chrome")) && (!BrowserType.Equals("Firefox")) && (!BrowserType.Equals("IE")))
+                    throw new ArgumentOutOfRangeException("The browser type must be one of the following values: Chrome, Firefox and IE.");
+            }
+            BrowserFactory.InitBrowser(BrowserType);//here we will use System.Environment() to replace with
 
         }
 

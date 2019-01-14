@@ -4,21 +4,14 @@ using ServiceTSF.PageObject;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using ServiceTSF.WrapperFactory;
+using System.Threading;
 
 namespace ServiceTSF
 {
     [Binding]
     public class TestWebSiteService365Steps
     {
-//        private IWebDriver _driver;
-/*
-        private BrowserFactory tbDriver;
 
-        public TestWebSiteService365Steps()
-        {
-            tbDriver = (BrowserFactory)ScenarioContext.Current["Driver"];
-        }
-*/
         [Given(@"User go to Login Page")]
         public void GivenUserGoToLoginPage()
         {
@@ -61,6 +54,7 @@ namespace ServiceTSF
         {
 //            ScenarioContext.Current.Pending();
             Assert.IsTrue(BasePage.NonLoginHome.IsPageTitleDisplay());
+//            Thread.Sleep(2000);
         }
     }
 }

@@ -17,14 +17,7 @@ namespace ServiceTSF.WrapperFactory
     {
         private static readonly IDictionary<string, IWebDriver> Drivers = new Dictionary<string, IWebDriver>();
         private static IWebDriver driver;
-        /*
-        private ScenarioContext context;
 
-        public BrowserFactory(ScenarioContext context)
-        {
-            this.context = context;
-        }
-        */
         public  static IWebDriver Driver
         {
             get
