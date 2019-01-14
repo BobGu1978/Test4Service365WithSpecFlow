@@ -10,4 +10,5 @@
         I just add one environment parameter Browser for the browser type, which should be one of these
         3 values: Chrome , Firefox and IE. This parameter should be setup in Jenkins too. And if the 
         value is out of range, one error will be thrown.
+        Then I use the config file to store the URL of targte web site.
         
