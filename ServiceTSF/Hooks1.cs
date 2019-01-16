@@ -38,8 +38,7 @@ namespace ServiceTSF
                 if ((!BrowserType.Equals("Chrome")) && (!BrowserType.Equals("Firefox")) && (!BrowserType.Equals("IE")))
                     throw new ArgumentOutOfRangeException("The browser type must be one of the following values: Chrome, Firefox and IE.");
             }
-            BrowserFactory.InitBrowser(BrowserType);//here we will use System.Environment() to replace with
-
+            BrowserFactory.SetBrowserType(BrowserType);
         }
 
         [BeforeScenario]
@@ -53,9 +52,9 @@ namespace ServiceTSF
 
             var settings = config.AppSettings.Settings;
 
+            BrowserFactory.InitBrowser();//here we will use System.Environment() to replace with
             String url = settings["Url"].Value;
 
-//            BrowserFactory.LoadApplication("https://uat.service365.co.nz/"); // here we will use value from config file
             BrowserFactory.LoadApplication(url); // here we will use value from config file
         }
 
@@ -64,6 +63,12 @@ namespace ServiceTSF
         {
             //TODO: implement logic that has to run after executing each scenario
             BrowserFactory.CloseAllDrivers();
+        }
+
+        [AfterTestRun]
+        public static void AfterTestRun()
+        {
+            BrowserFactory.QuitAllDrivers();
         }
     }
 }

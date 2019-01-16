@@ -9,8 +9,16 @@ using System.Threading;
 namespace ServiceTSF
 {
     [Binding]
-    public class TestWebSiteService365Steps
+    public class TestWebSiteService365Steps : Steps
     {
+
+        [Given(@"User log in as customer")]
+        public void GivenUserLoginAsCustomer()
+        {
+            Given(@"User go to Login Page");
+            When(@"User input username and password");
+            When(@"User press Login");
+        }
 
         [Given(@"User go to Login Page")]
         public void GivenUserGoToLoginPage()
@@ -31,30 +39,96 @@ namespace ServiceTSF
         [When(@"User press Login")]
         public void WhenUserPressLogin()
         {
-            //            ScenarioContext.Current.Pending();
             BasePage.Login.ClickLogin();
         }
 
         [When(@"User click LOG OFF")]
         public void WhenUserClickLOGOFF()
         {
-            //            ScenarioContext.Current.Pending();
             BasePage.Home.LogOut();
         }
         
         [Then(@"User go to Home Page")]
         public void ThenUserGoToHomePage()
         {
-            //            ScenarioContext.Current.Pending();
             Assert.IsTrue(BasePage.Home.IsHomePageDisplay());
         }
 
         [Then(@"User go to unlogon Home Page")]
         public void ThenUserGoToUnlogonHomePage()
         {
-//            ScenarioContext.Current.Pending();
             Assert.IsTrue(BasePage.NonLoginHome.IsPageTitleDisplay());
 //            Thread.Sleep(2000);
         }
+
+        [Given(@"User go to Service Page")]
+        public void GivenUserGoToServicePage()
+        {
+            BasePage.GoToServicePage();
+        }
+
+        [When(@"User search for specific service")]
+        public void WhenUserSearchForSpecificService()
+        {
+            BasePage.ServicePage.InputKeyWord("test for nothing");// now this value is hard-coded.
+            BasePage.ServicePage.ClickSearch();
+        }
+
+        [When(@"User click Book Now")]
+        public void WhenUserClickBookNow()
+        {
+            BasePage.ServicePage.OrderServiceByName("test for nothing");//later we will use other method to inject this value.
+        }
+
+        [Then(@"User go to place order page")]
+        public void ThenUserGoToPlaceOrderPage()
+        {
+            Assert.IsTrue(BasePage.PlaceOrderPage.IsSubmitDisplay());
+        }
+
+        [Given(@"User do some setup")]
+        public void GivenUserDoSetup()
+        {
+            DateTime cdt = DateTime.Now;
+            DateTime temp = cdt.AddDays(4);
+            if (temp.DayOfWeek.Equals("Saturday"))
+                temp = cdt.AddDays(6);
+            else
+            {
+                if (temp.DayOfWeek.Equals("Sunday"))
+                    temp = cdt.AddDays(5);
+            }
+            BasePage.PlaceOrderPage.ShowCalender();
+            BasePage.PlaceOrderPage.SetupDate(temp.Year, temp.Month, temp.Day);
+            BasePage.PlaceOrderPage.SetupTime(6, 0);//here the time is hard-coded
+            BasePage.PlaceOrderPage.SelectCheckBox();
+        }
+
+        [Given(@"User click Submit")]
+        public void GivenUserClickSubmit()
+        {
+            BasePage.PlaceOrderPage.SubmitOrder();
+        }
+
+        [Then(@"User go to Order detail page")]
+        public void ThenUserGoToOrderDetailPage()
+        {
+            Assert.IsTrue(BasePage.OrderDetailPage.getTextOfPageTitle().Trim().Equals("Order details"));
+        }
+
+        [When(@"User Cancel Order")]
+        public void WhenUserCancelOrder()
+        {
+            BasePage.OrderDetailPage.CancelOrder();
+            BasePage.OrderDetailPage.WaitForCancelSignal();
+            Thread.Sleep(2000);
+        }
+
+        [Then(@"on order detail page, the status shows Order Cancelled")]
+        public void ThenOnDetailPageStatusShowOrderCancelled()
+        {
+            Assert.IsTrue(BasePage.OrderDetailPage.IsOrderCancelledStatusShow());
+        }
+
     }
 }

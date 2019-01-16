@@ -59,6 +59,9 @@
     <Reference Include="Selenium.WebDriver.WaitExtensions, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Selenium.WebDriver.WaitExtensions.1.0.0\lib\Selenium.WebDriver.WaitExtensions.dll</HintPath>
     </Reference>
+    <Reference Include="SeleniumExtras.WaitHelpers, Version=3.11.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetSeleniumExtras.WaitHelpers.3.11.0\lib\net45\SeleniumExtras.WaitHelpers.dll</HintPath>
+    </Reference>
     <Reference Include="SpecRun.SpecFlowPlugin, Version=1.8.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\SpecRun.SpecFlow.2-4-0.1.8.5\lib\net45\SpecRun.SpecFlowPlugin.dll</HintPath>
     </Reference>
@@ -105,6 +108,9 @@
     <Compile Include="PageObject\HomePage.cs" />
     <Compile Include="PageObject\LoginPage.cs" />
     <Compile Include="PageObject\NonLoginHomePage.cs" />
+    <Compile Include="PageObject\OrderDetailPage.cs" />
+    <Compile Include="PageObject\PlaceOrderPage.cs" />
+    <Compile Include="PageObject\ServicePage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestWebSiteService365.feature.cs">
       <AutoGen>True</AutoGen>

@@ -10,6 +10,8 @@ using OpenQA.Selenium.IE;
 using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 using System.Threading;
+using OpenQA.Selenium.Interactions;
+using System.Drawing;
 
 namespace ServiceTSF.WrapperFactory
 {
@@ -34,10 +36,17 @@ namespace ServiceTSF.WrapperFactory
             }
         }
 
-        public static void InitBrowser(string browserName)
+        private static String BrowserType;
+
+        public static void SetBrowserType(String bt)
+        {
+            BrowserType = bt;
+        }
+
+        public static void InitBrowser()
         {
             //here we will need lots of options of webdriver to setup
-            switch (browserName)
+            switch (BrowserType)
             {
                 case "Firefox":
                     if (Driver == null)
@@ -64,8 +73,8 @@ namespace ServiceTSF.WrapperFactory
                     break;
             }
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(500);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             driver.Manage().Window.Maximize();
-            //            return Driver;
         }
 
         public static void LoadApplication(string url)
@@ -88,8 +97,32 @@ namespace ServiceTSF.WrapperFactory
             foreach (var key in Drivers.Keys)
             {
                 Drivers[key].Close();
+//                Drivers[key].Quit();
+            }
+        }
+
+        public static void QuitAllDrivers()
+        {
+            foreach (var key in Drivers.Keys)
+            {
                 Drivers[key].Quit();
             }
+
+        }
+
+        public static void MoveAndClick(IWebElement ele)
+        {
+            Actions act = new Actions(Driver);
+            act.MoveToElement(ele).Perform();
+            act.Click().Perform();
+            Thread.Sleep(1000);
+        }
+
+        public static void specialClick(IWebElement ele)
+        {
+            IJavaScriptExecutor js = (IJavaScriptExecutor)driver;
+            js.ExecuteScript("arguments[0].click();", ele);
+            Thread.Sleep(1000);
         }
     }
 }
