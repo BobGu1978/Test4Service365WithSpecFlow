@@ -11,4 +11,9 @@
         3 values: Chrome , Firefox and IE. This parameter should be setup in Jenkins too. And if the 
         value is out of range, one error will be thrown.
         Then I use the config file to store the URL of targte web site.
+    Jan 16th 2019
+        I have completed one new scenario about that Customer generate one order and cancel it.
+        recently, the problems are
+        1.need to move all the hard-coded values into data file or config file
+        2.need to study how to run scenarios in specific order
         
