@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using ServiceTSF.WrapperFactory;
 using OpenQA.Selenium;
+using SeleniumExtras.PageObjects;
 
 namespace ServiceTSF.PageObject
 {
@@ -13,6 +14,7 @@ namespace ServiceTSF.PageObject
         private static T GetPage<T>() where T : new()
         {
             var page = new T();
+            PageFactory.InitElements(BrowserFactory.Driver, page);
             return page;
         }
 

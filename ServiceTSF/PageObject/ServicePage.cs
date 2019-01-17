@@ -6,15 +6,14 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using ServiceTSF.WrapperFactory;
+using SeleniumExtras.PageObjects;
 
 namespace ServiceTSF.PageObject
 {
     class ServicePage
     {
-        private IWebElement KeyWordField
-        {
-            get { return BrowserFactory.Driver.FindElement(By.Name("k")); }
-        }
+        [FindsBy(How = How.Name, Using = "k")]
+        private IWebElement KeyWordField;
 
         public void InputKeyWord(String str)
         {
@@ -22,10 +21,8 @@ namespace ServiceTSF.PageObject
             KeyWordField.SendKeys(str);
         }
 
-        private IWebElement SearchButton
-        {
-            get { return BrowserFactory.Driver.FindElement(By.XPath("//*[@id='Filters']/button")); }
-        }
+        [FindsBy(How = How.XPath, Using = "//*[@id='Filters']/button")]
+        private IWebElement SearchButton;
 
         public void ClickSearch()
         {

@@ -6,39 +6,33 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using ServiceTSF.WrapperFactory;
 using System.Threading;
+using SeleniumExtras.PageObjects;
 
 namespace ServiceTSF.PageObject
 {
     class PlaceOrderPage
     {
-        private IWebElement CheckBox
-        {
-            get { return BrowserFactory.Driver.FindElement(By.Id("agreeCheckBox")); }
-        }
+        [FindsBy(How = How.Id, Using = "agreeCheckBox")]
+        private IWebElement CheckBox;
 
         public void SelectCheckBox()
         {
             BrowserFactory.specialClick(CheckBox);
         }
-        private IWebElement SubmitButton
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#myForm > fieldset > div.form-group.row.justify-content-end > div:nth-child(2) > button")); }
-        }
+
+        [FindsBy(How = How.CssSelector, Using = "#myForm > fieldset > div.form-group.row.justify-content-end > div:nth-child(2) > button")]
+        private IWebElement SubmitButton;
 
         public Boolean IsSubmitDisplay()
         {
             return SubmitButton.Displayed;
         }
 
-        private IWebElement ErrorOfWrongTime
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#myForm > fieldset > div:nth-child(7) > div > p:nth-child(3) > span")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#myForm > fieldset > div:nth-child(7) > div > p:nth-child(3) > span")]
+        private IWebElement ErrorOfWrongTime;
 
-        private IWebElement ErrorOfNoAgreement
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#errorMessageAgree")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#errorMessageAgree")]
+        private IWebElement ErrorOfNoAgreement;
 
         public void SubmitOrder()
         {
@@ -46,25 +40,17 @@ namespace ServiceTSF.PageObject
             BrowserFactory.wait_page_load();
         }
 
-        private IWebElement DateTimeField
-        {
-            get { return BrowserFactory.Driver.FindElement(By.Id("ServiceTime")); }
-        }
+        [FindsBy(How = How.Id, Using = "ServiceTime")]
+        private IWebElement DateTimeField;
 
-        private IWebElement DateCalendar
-        {
-            get { return BrowserFactory.Driver.FindElement(By.XPath("/html/body/div[5]/div[3]/table")); }
-        }
+        [FindsBy(How = How.XPath, Using = "/html/body/div[5]/div[3]/table")]
+        private IWebElement DateCalendar;
 
-        private IWebElement CurrentMonthAndYear
-        {
-            get { return BrowserFactory.Driver.FindElement(By.XPath("/html/body/div[5]/div[3]/table/thead/tr[1]/th[2]")); }
-        }
+        [FindsBy(How = How.XPath, Using = "/html/body/div[5]/div[3]/table/thead/tr[1]/th[2]")]
+        private IWebElement CurrentMonthAndYear;
 
-        private IWebElement NextMonth
-        {
-            get { return BrowserFactory.Driver.FindElement(By.ClassName("next")); }
-        }
+        [FindsBy(How = How.ClassName, Using = "next")]
+        private IWebElement NextMonth;
 
         private String getMonth(int month)
         {
@@ -116,15 +102,11 @@ namespace ServiceTSF.PageObject
 
         }
 
-        private IWebElement HourCalendar
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("body > div.datetimepicker.datetimepicker-dropdown-bottom-right.dropdown-menu > div.datetimepicker-hours > table")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "body > div.datetimepicker.datetimepicker-dropdown-bottom-right.dropdown-menu > div.datetimepicker-hours > table")]
+        private IWebElement HourCalendar;
 
-        private IWebElement MinuteCalendar
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("body > div.datetimepicker.datetimepicker-dropdown-bottom-right.dropdown-menu > div.datetimepicker-minutes > table")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "body > div.datetimepicker.datetimepicker-dropdown-bottom-right.dropdown-menu > div.datetimepicker-minutes > table")]
+        private IWebElement MinuteCalendar;
 
         public void SetupTime(int hour, int minute)
         {

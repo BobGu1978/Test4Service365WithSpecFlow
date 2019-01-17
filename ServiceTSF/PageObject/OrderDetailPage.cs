@@ -6,15 +6,14 @@ using System.Threading.Tasks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using ServiceTSF.WrapperFactory;
+using SeleniumExtras.PageObjects;
 
 namespace ServiceTSF.PageObject
 {
     class OrderDetailPage
     {
-        private IWebElement PageTitle
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#content > div.bg-light.index-1.intro-full-next.pt-6 > div > h2")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#content > div.bg-light.index-1.intro-full-next.pt-6 > div > h2")]
+        private IWebElement PageTitle;
 
         public void WaitForCancelSignal()
         {
@@ -27,25 +26,19 @@ namespace ServiceTSF.PageObject
             return PageTitle.Text;
         }
 
-        private IWebElement OrderNumber
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#content > div.bg-light.index-1.intro-full-next.pt-6 > div > div > div.col-md-8 > div:nth-child(1) > div.card-body > table > tbody > tr:nth-child(1) > td")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#content > div.bg-light.index-1.intro-full-next.pt-6 > div > div > div.col-md-8 > div:nth-child(1) > div.card-body > table > tbody > tr:nth-child(1) > td")]
+        private IWebElement OrderNumber;
 
         public String GetOrderNumber()
         {
             return OrderNumber.Text;
         }
 
-        private IWebElement Cancel
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#content > div.bg-light.index-1.intro-full-next.pt-6 > div > div > div.col-md-8 > div:nth-child(1) > div.card-body > div.text-right.mt-4 > small > a")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#content > div.bg-light.index-1.intro-full-next.pt-6 > div > div > div.col-md-8 > div:nth-child(1) > div.card-body > div.text-right.mt-4 > small > a")]
+        private IWebElement Cancel;
 
-        private IWebElement YESOnCancelConfirm
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#confirm > div > div > div.modal-footer > button.btn.btn-raised.btn-primary.btn-ok")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#confirm > div > div > div.modal-footer > button.btn.btn-raised.btn-primary.btn-ok")]
+        private IWebElement YESOnCancelConfirm;
 
         public void CancelOrder()
         {
@@ -54,15 +47,11 @@ namespace ServiceTSF.PageObject
             BrowserFactory.wait_page_load();
         }
 
-        private IWebElement OrderCancelled
-        {
-            get { return BrowserFactory.Driver.FindElement(By.XPath("//*[@id='content']/div[1]/div/div/div[2]/div[1]/div[2]/address/p[4]")); }
-        }
+        [FindsBy(How = How.XPath, Using = "//*[@id='content']/div[1]/div/div/div[2]/div[1]/div[2]/address/p[4]")]
+        private IWebElement OrderCancelled;
 
-        private IWebElement SignalOfCancel
-        {
-            get { return BrowserFactory.Driver.FindElement(By.CssSelector("#content > div.bg-light.index-1.intro-full-next.pt-6 > div > div > div.col-md-4 > div.card.card-info > div.card-body.overflow-hidden > address > p:nth-child(4) > i")); }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#content > div.bg-light.index-1.intro-full-next.pt-6 > div > div > div.col-md-4 > div.card.card-info > div.card-body.overflow-hidden > address > p:nth-child(4) > i")]
+        private IWebElement SignalOfCancel;
 
         public Boolean IsOrderCancelledStatusShow()
         {

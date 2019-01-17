@@ -5,35 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using ServiceTSF.WrapperFactory;
+using SeleniumExtras.PageObjects;
 
 namespace ServiceTSF.PageObject
 {
     class LoginPage
     {
-        private IWebElement UserName
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.Id("UserName"));
-            }
-        }
+        [FindsBy(How = How.Id, Using = "UserName")]
+        private IWebElement UserName;
 
-        private IWebElement Pwd
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.Id("Password"));
-            }
-        }
+        [FindsBy(How = How.Id, Using = "Password")]
+        private IWebElement Pwd;
 
-        private IWebElement Login
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[2]/form[1]/fieldset/div[3]/div[1]/button"));
-            }
-
-        }
+        [FindsBy(How = How.XPath, Using = "/html/body/div[1]/div/div[1]/div[2]/form[1]/fieldset/div[3]/div[1]/button")]
+        private IWebElement Login;
 
         public void SetUserName(String username)
         {
@@ -52,21 +37,16 @@ namespace ServiceTSF.PageObject
             Login.Click();
             BrowserFactory.wait_page_load();
         }
-/*
-        public void MyLogin(String username, String pwd)
-        {
-            UserName.SendKeys(username);
-            Pwd.SendKeys(pwd);
-            Login.Click();
-        }
-*/
-        private IWebElement PageTitle
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.XPath("/html/body/div[1]/div/div[1]/div[1]/h2"));
-            }
-        }
+        /*
+                public void MyLogin(String username, String pwd)
+                {
+                    UserName.SendKeys(username);
+                    Pwd.SendKeys(pwd);
+                    Login.Click();
+                }
+        */
+        [FindsBy(How = How.XPath, Using = "/html/body/div[1]/div/div[1]/div[1]/h2")]
+        private IWebElement PageTitle;
 
         public Boolean IsLoginPageDisplay()
         {

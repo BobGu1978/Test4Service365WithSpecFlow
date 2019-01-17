@@ -5,18 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using OpenQA.Selenium;
 using ServiceTSF.WrapperFactory;
+using SeleniumExtras.PageObjects;
 
 namespace ServiceTSF.PageObject
 {
     class HomePage
     {
-        private IWebElement LogOff
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.XPath("//*[@id='content']/div/div/div/div[1]/div/div[2]/form/a[4]"));
-            }
-        }
+        [FindsBy(How = How.XPath, Using = "//*[@id='content']/div/div/div/div[1]/div/div[2]/form/a[4]")]
+        private IWebElement LogOff;
 
         public void LogOut()
         {
@@ -24,30 +20,14 @@ namespace ServiceTSF.PageObject
             BrowserFactory.wait_page_load();
         }
 
-        private IWebElement NavBar
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.Id("navbar"));
-            }
-        }
+        [FindsBy(How = How.Id, Using = "navbar")]
+        private IWebElement NavBar;
 
-        private IWebElement UserBioContent
-        {
-            get
-            {
-                //                return BrowserFactory.Driver.FindElement(By.XPath("//*[@id='content']/div/div/div/div[1]/div/div[1]"));
-                return BrowserFactory.Driver.FindElement(By.CssSelector("#content > div > div > div > div.col-lg-4 > div > div.col-lg-12.col-md-8.order-md-1"));
-            }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#content > div > div > div > div.col-lg-4 > div > div.col-lg-12.col-md-8.order-md-1")]
+        private IWebElement UserBioContent;
 
-        private IWebElement UserGeneralInforContent
-        {
-            get
-            {
-                return BrowserFactory.Driver.FindElement(By.CssSelector("#content > div > div > div > div.col-lg-8 > div.card.card-primary"));
-            }
-        }
+        [FindsBy(How = How.CssSelector, Using = "#content > div > div > div > div.col-lg-8 > div.card.card-primary")]
+        private IWebElement UserGeneralInforContent;
 
         public Boolean IsHomePageDisplay()
         {
