@@ -46,13 +46,14 @@ namespace ServiceTSF.WrapperFactory
         public static void InitBrowser()
         {
             //here we will need lots of options of webdriver to setup
+            Console.WriteLine(BrowserType);
             switch (BrowserType)
             {
                 case "Firefox":
                     if (Driver == null)
                     {
                         driver = new FirefoxDriver();
-                        Drivers.Add("Firefox", Driver);
+//                        Drivers.Add("Firefox", Driver);
                     }
                     break;
 
@@ -60,7 +61,7 @@ namespace ServiceTSF.WrapperFactory
                     if (Driver == null)
                     {
                         driver = new InternetExplorerDriver(@"C:\PathTo\IEDriverServer");
-                        Drivers.Add("IE", Driver);
+//                        Drivers.Add("IE", Driver);
                     }
                     break;
 
@@ -68,10 +69,11 @@ namespace ServiceTSF.WrapperFactory
                     if (Driver == null)
                     {
                         driver = new ChromeDriver(@"C:\chromedriver");//here we will load the driver's folder from config file
-                        Drivers.Add("Chrome", Driver);
+//                        Drivers.Add("Chrome", Driver);
                     }
                     break;
             }
+            
             driver.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(500);
             driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
             driver.Manage().Window.Maximize();
@@ -94,19 +96,25 @@ namespace ServiceTSF.WrapperFactory
 
         public static void CloseAllDrivers()
         {
+            /*
             foreach (var key in Drivers.Keys)
             {
                 Drivers[key].Close();
 //                Drivers[key].Quit();
             }
+            */
+            Driver.Close();
         }
 
         public static void QuitAllDrivers()
         {
+            /*
             foreach (var key in Drivers.Keys)
             {
                 Drivers[key].Quit();
-            }
+            }*/
+            Driver.Quit();
+            Driver = null;
 
         }
 
