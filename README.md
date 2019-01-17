@@ -16,4 +16,6 @@
         recently, the problems are
         1.need to move all the hard-coded values into data file or config file
         2.need to study how to run scenarios in specific order
+    Jan 17th 2019
+        I use SeleniumExtras.PageObjects to enable pagefactory again.
         
