@@ -10,6 +10,7 @@ using System.Reflection;
 using System.IO;
 using TechTalk.SpecFlow.Tracing;
 using System.Drawing.Imaging;
+using ServiceTSF.Util;
 
 namespace ServiceTSF
 {
@@ -22,16 +23,7 @@ namespace ServiceTSF
         [BeforeTestRun]
         public static void Init()
         {
-            /*
-            Uri UriAssemblyFolder = new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly()
-              .GetName().CodeBase));
-            string appPath = UriAssemblyFolder.LocalPath;
-            Configuration config = ConfigurationManager.OpenExeConfiguration(appPath + @"\" + "ServiceTSF.dll");
-
-            var settings = config.AppSettings.Settings;
-
-            url = settings["Url"].Value;
-            */
+            Data.ReadDataFromConfig();
             String BrowserType = System.Environment.GetEnvironmentVariable("Browser");
             if(BrowserType==null)
             {
@@ -48,17 +40,18 @@ namespace ServiceTSF
         public static void BeforeScenario()
         {
             //TODO: implement logic that has to run before executing each scenario
+            /*
             Uri UriAssemblyFolder = new Uri(System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly()
                           .GetName().CodeBase));
             string appPath = UriAssemblyFolder.LocalPath;
             Configuration config = ConfigurationManager.OpenExeConfiguration(appPath + @"\" + "ServiceTSF.dll");
 
             var settings = config.AppSettings.Settings;
-
+            */
             BrowserFactory.InitBrowser();//here we will use System.Environment() to replace with
-            String url = settings["Url"].Value;
+//            String url = settings["Url"].Value;
 
-            BrowserFactory.LoadApplication(url); // here we will use value from config file
+            BrowserFactory.LoadApplication(Data.Url); // here we will use value from config file
         }
 
         [AfterScenario]

@@ -121,6 +121,7 @@
       <DependentUpon>TestWebSiteService365.feature</DependentUpon>
     </Compile>
     <Compile Include="TestWebSiteService365Steps.cs" />
+    <Compile Include="Util\Data.cs" />
     <Compile Include="WrapperFactory\BrowserFactory.cs" />
   </ItemGroup>
   <ItemGroup>
