@@ -22,3 +22,6 @@
         some unneccessary codes are commented, the key reason is value Driver is not set to null after code 
         Driver.Quit() is executed, then when the initBrowser() is called again, the real driver will never be
         generated.
+    Jan 18th 2019
+        Now I use one static class to store the values read from config file.
+        
