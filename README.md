@@ -18,4 +18,7 @@
         2.need to study how to run scenarios in specific order
     Jan 17th 2019
         I use SeleniumExtras.PageObjects to enable pagefactory again.
-        
+        a quick update that I just fix a problem that socket exception pops when we run multiple scenarios--
+        some unneccessary codes are commented, the key reason is value Driver is not set to null after code 
+        Driver.Quit() is executed, then when the initBrowser() is called again, the real driver will never be
+        generated.
