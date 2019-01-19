@@ -26,3 +26,9 @@
         Now I use one static class to store the values read from config file.
         And I also move lots of hard-coded data to config file and data file-- maybe I should move the data file
         name to config file too.
+    Jan 19th 2019
+        final update for this demo. now the script will try to go back home page then logoff if possible after 
+        every scenario ends.
+        and I think the demo is done. 
+        I will continue to learn how to auto-test on modile app side. also one demo for that will be provided later--
+        maybe someday of May.
