@@ -24,4 +24,5 @@
         generated.
     Jan 18th 2019
         Now I use one static class to store the values read from config file.
-        
+        And I also move lots of hard-coded data to config file and data file-- maybe I should move the data file
+        name to config file too.
