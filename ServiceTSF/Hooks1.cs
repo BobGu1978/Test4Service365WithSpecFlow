@@ -11,6 +11,7 @@ using System.IO;
 using TechTalk.SpecFlow.Tracing;
 using System.Drawing.Imaging;
 using ServiceTSF.Util;
+using ServiceTSF.PageObject;
 
 namespace ServiceTSF
 {
@@ -65,8 +66,32 @@ namespace ServiceTSF
             {
                 TakeScreenshot(BrowserFactory.Driver);
             }
-            BrowserFactory.CloseAllDrivers();
-            BrowserFactory.QuitAllDrivers();
+            try
+            {
+                BasePage.GoToHomePage();
+                String url ;
+                if(BrowserFactory.Driver.Url.EndsWith("/"))
+                {
+                    url = BrowserFactory.Driver.Url.TrimEnd('/');
+                }
+                else
+                {
+                    url = BrowserFactory.Driver.Url;
+                }
+                if(!url.Equals(Data.Url))
+                {
+                    BasePage.Home.LogOut();
+                }
+            }
+            catch(OpenQA.Selenium.NoSuchElementException e)
+            {
+                //do nothing
+            }
+            finally
+            {
+                BrowserFactory.CloseAllDrivers();
+                BrowserFactory.QuitAllDrivers();
+            }
         }
         private static void TakeScreenshot(IWebDriver driver)
         {

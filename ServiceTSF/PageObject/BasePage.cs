@@ -62,5 +62,20 @@ namespace ServiceTSF.PageObject
             BrowserFactory.wait_page_load();
         }
 
+        private static IWebElement HomeLink
+
+        {
+            get
+            {
+                return BrowserFactory.Driver.FindElement(By.CssSelector("#navbar > ul > li:nth-child(1) > a"));
+            }
+        }
+
+        public static void GoToHomePage()
+        {
+            HomeLink.Click();
+            BrowserFactory.wait_page_load();
+        }
+
     }
 }
