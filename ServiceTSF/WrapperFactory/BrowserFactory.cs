@@ -46,7 +46,6 @@ namespace ServiceTSF.WrapperFactory
         public static void InitBrowser()
         {
             //here we will need lots of options of webdriver to setup
-            Console.WriteLine(BrowserType);
             switch (BrowserType)
             {
                 case "Firefox":
