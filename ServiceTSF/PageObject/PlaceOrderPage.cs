@@ -38,6 +38,7 @@ namespace ServiceTSF.PageObject
         {
             SubmitButton.Click();
             BrowserFactory.wait_page_load();
+            Thread.Sleep(5000);
         }
 
         [FindsBy(How = How.Id, Using = "ServiceTime")]

@@ -5,6 +5,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using OpenQA.Selenium;
 using ServiceTSF.WrapperFactory;
 using System.Threading;
+using ServiceTSF.Util;
 
 namespace ServiceTSF
 {
@@ -31,8 +32,8 @@ namespace ServiceTSF
         public void WhenUserInputUsernameAndPassword()
         {
             //            ScenarioContext.Current.Pending();
-            BasePage.Login.SetUserName("guyu_susa@hotmail.com");
-            BasePage.Login.SetPwd("Gy9618002");
+            BasePage.Login.SetUserName(CustomerData.UserName);
+            BasePage.Login.SetPwd(CustomerData.Pwd);
             //here we will use data from data file to replace with hardcoding string
         }
         
@@ -70,14 +71,14 @@ namespace ServiceTSF
         [When(@"User search for specific service")]
         public void WhenUserSearchForSpecificService()
         {
-            BasePage.ServicePage.InputKeyWord("test for nothing");// now this value is hard-coded.
+            BasePage.ServicePage.InputKeyWord(OrderDetail.ServiceName);// now this value is hard-coded.
             BasePage.ServicePage.ClickSearch();
         }
 
         [When(@"User click Book Now")]
         public void WhenUserClickBookNow()
         {
-            BasePage.ServicePage.OrderServiceByName("test for nothing");//later we will use other method to inject this value.
+            BasePage.ServicePage.OrderServiceByName(OrderDetail.ServiceName);//later we will use other method to inject this value.
         }
 
         [Then(@"User go to place order page")]
@@ -90,17 +91,17 @@ namespace ServiceTSF
         public void GivenUserDoSetup()
         {
             DateTime cdt = DateTime.Now;
-            DateTime temp = cdt.AddDays(4);
+            DateTime temp = cdt.AddDays(OrderDetail.DateAdd);
             if (temp.DayOfWeek.Equals("Saturday"))
-                temp = cdt.AddDays(6);
+                temp = cdt.AddDays(OrderDetail.DateAdd+2);
             else
             {
                 if (temp.DayOfWeek.Equals("Sunday"))
-                    temp = cdt.AddDays(5);
+                    temp = cdt.AddDays(OrderDetail.DateAdd+1);
             }
             BasePage.PlaceOrderPage.ShowCalender();
             BasePage.PlaceOrderPage.SetupDate(temp.Year, temp.Month, temp.Day);
-            BasePage.PlaceOrderPage.SetupTime(6, 0);//here the time is hard-coded
+            BasePage.PlaceOrderPage.SetupTime( OrderDetail.Hour, OrderDetail.Minute);//here the time is hard-coded
             BasePage.PlaceOrderPage.SelectCheckBox();
         }
 

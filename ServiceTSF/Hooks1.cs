@@ -24,6 +24,8 @@ namespace ServiceTSF
         public static void Init()
         {
             Data.ReadDataFromConfig();
+            CustomerData.init();
+            OrderDetail.init();
             String BrowserType = System.Environment.GetEnvironmentVariable("Browser");
             if(BrowserType==null)
             {
